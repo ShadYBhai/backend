@@ -50,7 +50,7 @@ app.put("/products/:id", async (req, res) => {
         netPrice,
         grossPrice,
       },
-      { new: true } // Return the updated product instead of the old one
+      { new: true }
     );
 
     res.json(product);
@@ -60,11 +60,21 @@ app.put("/products/:id", async (req, res) => {
   }
 });
 
-// Start the server and listen for incoming requests
 app.get("/products", async (req, res) => {
   const products = await Product.find({});
 
   res.json(products);
+});
+
+app.delete("/api/products/:id", (req, res) => {
+  const id = req.params.id;
+  Product.findByIdAndDelete(id)
+    .then((product) => {
+      res.send(product);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
 });
 
 app.listen(4000, () => console.log("server is running on 4000..."));
