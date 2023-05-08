@@ -79,20 +79,20 @@ app.delete("/api/products/:id", (req, res) => {
     });
 });
 
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "uploads/");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + "-" + file.originalname);
-//   },
-// });
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
 
-// const upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
-// app.post("/upload", upload.single("image"), (req, res) => {
-//   console.log(req.file);
-//   res.send("File uploaded successfully");
-// });
+app.post("/upload", upload.single("image"), (req, res) => {
+  console.log(req.file);
+  res.send("File uploaded successfully");
+});
 
 app.listen(4000, () => console.log("server is running on 4000..."));
