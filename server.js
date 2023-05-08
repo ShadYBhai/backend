@@ -2,6 +2,8 @@ const express = require("express");
 const Product = require("./model/Product");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const File = require("./model/File");
+const multer = require("multer");
 
 const app = express();
 
@@ -77,21 +79,20 @@ app.delete("/api/products/:id", (req, res) => {
     });
 });
 
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    callback(null, "uploads/");
-  },
-  filename: (req, file, callback) => {
-    const filename = file.originalname.replace(/\s/g, "_");
-    callback(null, `${Date.now()}_${filename}`);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "uploads/");
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + "-" + file.originalname);
+//   },
+// });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
 
-app.post("/upload", upload.single("file"), (req, res) => {
-  const file = req.file;
-  // Handle the uploaded file
-});
+// app.post("/upload", upload.single("image"), (req, res) => {
+//   console.log(req.file);
+//   res.send("File uploaded successfully");
+// });
 
 app.listen(4000, () => console.log("server is running on 4000..."));

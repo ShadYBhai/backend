@@ -6,3 +6,7 @@ const fileSchema = new mongoose.Schema({
   size: Number,
   path: String,
 });
+
+const File = mongoose.model("File", fileSchema);
+
+module.exports = File;
