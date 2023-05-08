@@ -77,4 +77,21 @@ app.delete("/api/products/:id", (req, res) => {
     });
 });
 
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, "uploads/");
+  },
+  filename: (req, file, callback) => {
+    const filename = file.originalname.replace(/\s/g, "_");
+    callback(null, `${Date.now()}_${filename}`);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+app.post("/upload", upload.single("file"), (req, res) => {
+  const file = req.file;
+  // Handle the uploaded file
+});
+
 app.listen(4000, () => console.log("server is running on 4000..."));
