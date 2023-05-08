@@ -6,6 +6,7 @@ const productSchema = new mongoose.Schema({
   netPrice: { type: Number, required: true },
   grossPrice: { type: Number, required: true },
   vat: { type: Number, required: true },
+  imageUrl: String,
   createdAt: { type: Date, default: Date.now },
 });
 
